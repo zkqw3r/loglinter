@@ -1,0 +1,6 @@
+version: v2.11.3
+
+plugins:
+  - module: 'github.com/zkqw3r/loglinter'
+    import: 'github.com/zkqw3r/loglinter/plugin'
+    path: .
