@@ -1,5 +1,11 @@
 # loglinter
 
+[![Go](https://img.shields.io/badge/Go-1.22+-00ADD8?logo=go)](https://go.dev/)
+[![golangci-lint](https://img.shields.io/badge/golangci--lint-v2.11.3-blue)](https://golangci-lint.run/)
+[![zap](https://img.shields.io/badge/zap-supported-orange)](https://github.com/uber-go/zap)
+[![slog](https://img.shields.io/badge/slog-supported-green)](https://pkg.go.dev/log/slog)
+
+
 Go linter for checking log messages, compatible with golangci-lint
 
 ## Verification Rules
@@ -14,6 +20,24 @@ Go linter for checking log messages, compatible with golangci-lint
 
 - `go.uber.org/zap` — `Logger` and `SugaredLogger`
 - `log/slog` — package functions and methods `*slog.Logger`
+
+### Auto-fix
+
+Run with `--fix` to automatically correct violations:
+
+\```bash
+./custom-gcl run --fix ./...
+\```
+
+Fixable rules: uppercase → lowercase, removes special symbols and emojis.
+
+
+## How it works
+
+The linter analyzes calls to `go.uber.org/zap` and `log/slog` logging functions,
+extracts the message argument and validates it against the configured rules.
+All checks are configurable via `.golangci.yml`. Rules support auto-fix —
+run with `--fix` flag to apply corrections automatically.
 
 ## Installation and launch
 
