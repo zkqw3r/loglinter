@@ -17,10 +17,10 @@ func main() {
 	sugar.Infow("starting 🚀", "port", 8080)     // want `Log messages should not contain special characters or emojis`
 	sugar.Infow("123 password", "port", 8080)   // want `Log messages should not contain potentially sensitive data`
 
-	slog.Info("Server started") // want `Log messages should start with a lowercase letter.`
-	slog.Info("запуск сервера") // want `Log messages must be in English only.`
-	slog.Info("starting!")      // want `Log messages should not contain special characters or emojis.`
+	slog.Info("Server started") // want `Log messages should start with a lowercase letter`
+	slog.Info("запуск сервера") // want `Log messages must be in English only`
+	slog.Info("starting!")      // want `Log messages should not contain special characters or emojis`
 
 	logger, _ = zap.NewProduction()
-	logger.Info("Server started") // want `Log messages should start with a lowercase letter.`
+	logger.Info("Server started") // want `Log messages should start with a lowercase letter`
 }
