@@ -113,7 +113,7 @@ go test ./...
 
 ## Project structure
 
-\```
+```
 loglinter/
 ├── cmd/logchecker/main.go       # standalone binary entry point
 ├── pkg/analyzer/
@@ -130,4 +130,4 @@ loglinter/
 ├── .golangci.yml                # linter configuration example
 ├── .custom-gcl.yml              # golangci-lint custom build config
 └── .github/workflows/ci.yml     # CI/CD
-\```
+```
