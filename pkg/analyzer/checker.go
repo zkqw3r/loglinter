@@ -27,12 +27,19 @@ func checkLanguage(result *Result) {
 }
 
 func checkSpecialSymbols(result *Result) {
+	var builder strings.Builder
+	found := false
 	for _, r := range result.Log {
-		if !unicode.IsLetter(r) && !unicode.IsDigit(r) && !unicode.IsSpace(r) {
-			result.Messages = append(result.Messages,
-				"Log messages should not contain special characters or emojis")
-			return
+		if unicode.IsLetter(r) || unicode.IsDigit(r) || unicode.IsSpace(r) {
+			builder.WriteRune(r)
+		} else {
+			found = true
 		}
+	}
+	if found {
+		result.Messages = append(result.Messages,
+			"Log messages should not contain special characters or emojis")
+		result.Log = builder.String()
 	}
 }
 

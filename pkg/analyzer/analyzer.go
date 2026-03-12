@@ -50,18 +50,26 @@ func run(pass *analysis.Pass) (interface{}, error) {
 			return
 		}
 
-		pass.Report(analysis.Diagnostic{
+		hasFix := result.Log != msg
+		msgBytes := []byte(msg)
+
+		diagnostic := analysis.Diagnostic{
 			Pos:     pos,
 			Message: strings.Join(result.Messages, "; "),
-			SuggestedFixes: []analysis.SuggestedFix{{
+		}
+
+		if hasFix {
+			diagnostic.SuggestedFixes = []analysis.SuggestedFix{{
 				Message: "apply fix",
 				TextEdits: []analysis.TextEdit{{
 					Pos:     pos + 1,
-					End:     pos + 1 + token.Pos(len(msg)),
+					End:     pos + 1 + token.Pos(len(msgBytes)),
 					NewText: []byte(result.Log),
 				}},
-			}},
-		})
+			}}
+		}
+
+		pass.Report(diagnostic)
 	})
 
 	return nil, nil
