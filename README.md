@@ -25,9 +25,9 @@ Go linter for checking log messages, compatible with golangci-lint
 
 Run with `--fix` to automatically correct violations:
 
-\```bash
+```bash
 ./custom-gcl run --fix ./...
-\```
+```
 
 Fixable rules: uppercase → lowercase, removes special symbols and emojis.
 
@@ -110,3 +110,24 @@ test_sample.go:10:14: Log messages should not contain special characters or emoj
 ```bash
 go test ./...
 ```
+
+## Project structure
+
+\```
+loglinter/
+├── cmd/logchecker/main.go       # standalone binary entry point
+├── pkg/analyzer/
+│   ├── analyzer.go              # analyzer definition and run function
+│   ├── logmessage.go            # log detection and message extraction
+│   ├── checker.go               # rule checker functions
+│   ├── checker_test.go          # unit tests for each checker
+│   ├── analyzer_test.go         # integration test via analysistest
+│   └── config.go                # Config struct, Result, method maps
+│   └── testdata/src/
+│       ├── go.uber.org/zap/     # zap stub for tests
+│       └── sample/sample.go     # test cases with // want comments
+├── plugin/plugin.go             # golangci-lint module plugin
+├── .golangci.yml                # linter configuration example
+├── .custom-gcl.yml              # golangci-lint custom build config
+└── .github/workflows/ci.yml     # CI/CD
+\```
